@@ -1,0 +1,22 @@
+/// <reference path="../pb_data/types.d.ts" />
+migrate((db) => {
+  const dao = new Dao(db)
+  const collection = dao.findCollectionByNameOrId("8qlgw58cwsdpzsq")
+
+  collection.listRule = "users_via_wallet.id = @request.auth.id"
+  collection.viewRule = "users_via_wallet.id = @request.auth.id"
+  collection.updateRule = null
+  collection.deleteRule = null
+
+  return dao.saveCollection(collection)
+}, (db) => {
+  const dao = new Dao(db)
+  const collection = dao.findCollectionByNameOrId("8qlgw58cwsdpzsq")
+
+  collection.listRule = ""
+  collection.viewRule = ""
+  collection.updateRule = ""
+  collection.deleteRule = ""
+
+  return dao.saveCollection(collection)
+})
